@@ -2,7 +2,7 @@
 <-        #left: Variable name, right: Value // Most common
 ->        #right: Value, right: Variable name
 =         #sub
-assign()  #assign("Variable name", 변수값)
+assign()  #assign("Variable name", value)
 
 
 #examples
