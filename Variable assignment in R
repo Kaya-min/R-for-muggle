@@ -1,0 +1,23 @@
+# Variable assignment
+<-        #left: Variable name, right: Value // Most common
+->        #right: Value, right: Variable name
+=         #sub
+assign()  #assign("Variable name", 변수값)
+
+
+#examples
+a <- 100
+a
+##[1] 100
+
+200 -> b
+b
+##[1] 200
+
+c = 300
+c
+##[1] 300
+
+assign("d", 400)
+d
+##[1] 400
