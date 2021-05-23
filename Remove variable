@@ -1,0 +1,5 @@
+#Remove variable
+rm() #rm means 'remove'
+
+#example
+rm(variable)
