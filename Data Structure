@@ -1,0 +1,22 @@
+#view(): view full data
+view(data)
+
+#srt(): data type(class) of the variable in the data
+str(data)
+
+#class(): data type(class) of the variable in the data (similar with 'str()')
+class(data)
+
+#head(): from the first row
+head(data, n = The number of rows in the data you want to print)
+
+#tail(): from the last row
+tail(data, n = The number of rows in the data you want to print)
+
+#summary(): Minimum, maximum, median, average, first and third quartiles of the data
+summary(data)
+
+#describe()
+install.packages("psych")
+library(psych)
+describe(data)
