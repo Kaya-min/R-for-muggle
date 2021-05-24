@@ -1,0 +1,7 @@
+#form
+df$Derived Variable <- condition
+
+#example
+df$total <- df$var1 + df$var2
+df$mean <- (df$var1 + df$var2)/2
+​
