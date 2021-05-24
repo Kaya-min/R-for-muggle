@@ -1,0 +1,8 @@
+#package download
+install.packages("dplyr")
+
+#package load
+library(dplyr)
+
+#rename variable
+df <- rename(df, new variable name = original variable name)
