@@ -1,0 +1,35 @@
+# One-way within ANOVA (within-subjects ANOVA)
+
+## 1. 독립성 검정 (test of independence)
+
+### 2-1. 정규성 검정(normality test) by Q-Q plot: data set이 정규분포를 따르는지 판단하는 시각적 분석 방법
+library(car)
+qqPlot(데이터$종속변수 ~ 데이터$독립변수)
+
+### 2-2. 정규성 검정(normality test) by Shapiro-Wilks test: 표본수(n)이 2000 미만인 data set에 적합한 정규성 검정
+### H0(귀무가설): data set이 정규분포를 따른다.
+### H1(대립가설): data set이 정규분포를 따르지 않는다.
+### 가설 채택 여부 결정: p-value>0.05 라면 귀무가설 채택. 정규성이 충족되었다고 판단한다.
+library(psych)
+describeBy(task$Pieces, task$Condition)
+
+### 2-3. 정규성 검정(normality test) by Kolmogorove-Smirnov test: 표본수(n)이 2000 초과인 data set에 적합한 정규성 검정
+### H0(귀무가설): data set이 정규분포를 따른다.
+### H1(대립가설): data set이 정규분포를 따르지 않는다.
+### 가설 채택 여부 결정: p-value>0.05 라면 귀무가설 채택. 정규성이 충족되었다고 판단한다.
+
+### 3-1. 등분산성 검정 (homogeneity of variance test) by levene test: 정규성 가정과 무관한 등분산 검정 방법.
+### H0(귀무가설): 집단 간 분산 차이가 없을 것이다. (σ1 = σ2 / 등분산일 것이다.)
+### H1(대립가설): 집단 간 분산 차이가 있을 것이다. (σ1 ≠ σ2 / 이분산일 것이다.)
+### 가설 채택 여부 결정: p-value>0.05 라면 귀무가설 채택. 등분산성이 충족되었다고 판단한다.
+library(car)
+leveneTest(종속변수 ~ 독립변수, data = 데이터) #또는
+leveneTest(데이터$종속변수 ~ 데이터$독립변수)
+
+### 3-2. 등분산성 검정 (homogeneity of variance test) by Barltett test: 정규성 가정이 만족한 집단들에 대한 등분산 검정 방법.
+### H0(귀무가설): 집단 간 분산 차이가 없을 것이다. (σ1 = σ2 / 등분산일 것이다.)
+### H1(대립가설): 집단 간 분산 차이가 있을 것이다. (σ1 ≠ σ2 / 이분산일 것이다.)
+### 가설 채택 여부 결정: p-value>0.05 라면 귀무가설 채택. 등분산성이 충족되었다고 판단한다.
+library(stats)
+bartlett.test(종속변수 ~ 독립변수, data = 데이터) #또는
+bartlett.test(데이터$종속변수 ~ 데이터$독립변수)
