@@ -1,0 +1,62 @@
+# Regression (회귀분석): 독립변수가 종속변수에 영향을 미치는지, 미치지 않는지 알아보기 위해 실시하는 분석 방법.
+
+## Simple linear regression (단순선형 회귀 분석) with problem set 8
+
+1-1. Correlation(상관분석) by ggplot()
+library(ggplot2)
+ggplot(yt, aes(x = 독립변수 , y = 종속변수)) +
+ geom_point() +
+ geom_smooth(method = 'lm') +
+ theme_classic()
+
+1-2. Correlation(상관분석) by chart.Correlation() --> 1-1 안 하고 이것만 해도 됨
+library(PerformanceAnalytics)
+chart.Correlation(data)
+
+* 기술(생각하면서 써): 산점도를 그려본 결과 X와 Y는 선형 관계(r= r값)를 가진다. 따라서 단순 선형 회귀분석을 진행한다.
+
+
+2. Simple regression (단순선형 회귀 분석)
+- H0(귀무가설): 독립변수는 종속변수에 영향을 미치지 않았을 것이다.
+- H1(대립가설): 독립변수는 종속변수에 영향을 미쳤을 것이다.
+var <- lm(종속변수 ~ 독립변수, data = 데이터) #또는
+var <- lm(데이터$종속변수 ~ 데이터$독립변수)
+#예시: you.lm <- lm(sales~youtube, data = you) 또는 yt.lm <- lm(yt$sales ~ yt$youtube)
+summary(var)                                             <- ((1)번이다. 존나 기억해..!!! 바로 아래에 나와!!)
+
+plot(데이터$종속변수 ~ 데이터$독립변수)
+abline((1)의 Coefficients의 (Intercept)의 Estimate값, (1)의 Coefficients의 (Intercept아래, 영향 주는 변수)의 Estimate값, col = "blue", lwd= 10) #이해안되면 너가 낸 problemset 8봐
+abline(lm(데이터$종속변수 ~ 데이터$독립변수), col = "yellow", lwd = 2)
+
+* 기술(생각하면서 써): (가설 세운 거 꼭 써주기) (종속변수)가 (독립변수)에 영향을 미치는지 알아보기 위해 단순 선형 회귀분석을 실시했다.
+분석 결과,(종속변수)와 (독립변수)간의 회귀 모형은 95% 수준에서 통계적으로 유의했다[F(df값) = F값, p < .05]. 
+(해석; 광고 집행 비용이 증가할 수록 전체 매출이 증가하였으며)[B = 기울기 베타 값, t = (1)에 나온 독립변수 t value, p < .05], 광고 집행 비용은 전체 매출 비용의 약 adjust R square%를 설명한다.
+
+
+
+## Multi linear regression (다중선형 회귀 분석) with problem set 9 (꼭 보면서 하셈,,)
+
+1. Correlation(상관분석) by chart.Correlation()
+library(PerformanceAnalytics)
+chart.Correlation(eco2)
+
+2. Multi regression (다중선형 회귀 분석)
+
+# 영향을 미치는가
+var <- lm(종속변수 ~ 독립변수1 + 독립변수2 + ... + 독립변수n, data = 데이터파일명)
+summary(var)
+*기술(problem set 낸 거 보면서 해,,)
+- H0: 회귀 모형은 타당하다.
+- H1: 회귀 모형은 타당하지 않다.
+분석 결과에 따르면 (독립변수1), (독립변수2), ..., (독립변수n) 중 한 가지 이상의 변수가 유의수준 0.05에서 통계적으로 유의한 회귀 모형을 가진 것으로 나타났다[F(6,273) = 27.85, p < .001]. 
+
+- H1: (독립변수1)는 (종속변수)와 상관성이 있을 것이다. 
+- H2: (독립변수2)과 (종속변수)와 상관성이 있을 것이다. 
+- Hn: (독립변수n)과 (종속변수)와 상관성이 있을 것이다. 
+분석 결과에 따르면 (독립변수1)(p-value: 독립변수 1의 p값), (독립변수2)(p-value: 독립변수 2의 p값), (독립변수n)(p-value: 독립변수 n의 p값)는 (종속변수)에 영향을 미치고 있다.
+
+#얼마나 영향을 미치는가
+library(lm.beta)       #beta값(기울기)이 클수록 영향력 큰 거 알지?!
+lm.beta(var)
+*기술(problem set 낸 거 보면서 해,,)
+: 또한 분석 결과를 통해 개인이 지각하는 환경문제의 심각성 정도, 친환경 행동을 할 수 있다는 자기 효능감, 성별, 교육 수준 순서로 친환경 행동 의도에 정(+)적인 영향을 준다는 것을 알 수 있다.
