@@ -1,0 +1,16 @@
+# Frequency Table(빈도분포표), Relative Frequency Table(상대 빈도 분포표), Cumulative Frequency Table(누적 빈도 분포표)
+library(COUNT)
+variable <- myTable(data)
+
+
+##Change the column names (1) with names()
+names(variable) <- c("new column name", "Freq", "Prop", "CumProp")
+library(knitr)
+kable(variable)  #knitr package
+
+
+##Change the column names (2) with rename()
+library(dplyr)
+variable <- rename(variable, "new column name" = "x") #dplyr package
+library(knitr)
+kable(variable) #knitr package
