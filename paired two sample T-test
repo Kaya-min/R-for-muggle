@@ -1,0 +1,38 @@
+# paired two sample T-test (대응표본 T-검정)
+
+## 기본 개요: 독립적이지 않은 두 집단의 평균치를 비교하기 위해 사용하는 분석 기법. 대표적으로 before & after 차이 비교. paired이기 때문에 두 집단의 자료 갯수가 동일함.
+
+## 가정
+## 1. 독립성(independence of observation assumption) 
+## 2. 정규성(normality assumption)
+
+### 1. 독립성 검정 (test of independence) --> 따로 검증 필요없을 가능성 높음. 대응표본 t-test를 실행한다는 것부터 독립성이 충족되지 않음을 의미함.
+
+### 2-1. 정규성 검정(normality test) by Q-Q plot: data set이 정규분포를 따르는지 판단하는 시각적 분석 방법
+library(car)
+qqPlot(데이터$종속변수 ~ 데이터$독립변수)
+
+### 2-2. 정규성 검정(normality test) by Shapiro-Wilks test: 표본수(n)이 2000 미만인 data set에 적합한 정규성 검정
+### H0(귀무가설): data set이 정규분포를 따른다.
+### H1(대립가설): data set이 정규분포를 따르지 않는다.
+### 가설 채택 여부 결정: p-value>0.05 라면 귀무가설 채택. 정규성이 충족되었다고 판단한다.
+library(stats)
+shapiro.test(x)
+
+### 2-3. 정규성 검정(normality test) by Kolmogorove-Smirnov test: 표본수(n)이 2000 초과인 data set에 적합한 정규성 검정
+### H0(귀무가설): data set이 정규분포를 따른다.
+### H1(대립가설): data set이 정규분포를 따르지 않는다.
+### 가설 채택 여부 결정: p-value>0.05 라면 귀무가설 채택. 정규성이 충족되었다고 판단한다.
+
+## paired two sample T-test 실행
+##  H0(귀무가설): μ1 = μ2
+##  H1(대립가설): μ1 ≠ μ2
+## 가설 채택 여부 결정: p-value<0.05 라면 대립가설 채택. 두 집단 간의 (종속변수/알아보고자 했던 것)는 통계적으로 유의미한 차이가 존재한다고 판단할 수 있다.
+t.test(비교 group1, 비교 group2, paired = TRUE) #기본 내장 함수 #ex. t.test(data$before, data$after, paired = TRUE)
+##기술: 가설을 검증하기 위해 paired two-sample t-test 를 수행하였다. 수행 결과, t(df값)=t값, p < 0.05 로 두 집단 간의 실험에 대한 태도는 통계적으로 유의미한 차이가 존재하였다.
+
+## effect size (효과크기 검정)
+library(effsize)
+cohen.d(종속변수 ~ 독립변수)
+### 기술 (그대로 쓰지 말고 생각하면서 써라,,): 집단에 따른 효과의 정도를 알아보기 위해 Cohen 의 d 를 산출하였고, d= 값(95% CI : 하한, 상한)으로 (__) 효과크기를 가짐을 알 수 있었다.
+따라서 두 집단의 (종속변수/알아보고자 했던 것)는 차이가 있다는 것을 알 수 있으며, 그 효과 크기도 크다는 것을 알 수 있었다.
