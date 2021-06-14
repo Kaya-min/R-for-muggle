@@ -23,7 +23,7 @@ qqPlot(데이터$종속변수 ~ 데이터$독립변수)
 - H1(대립가설): data set이 정규분포를 따르지 않는다.
 - 가설 채택 여부 결정: p-value>0.05 라면 귀무가설 채택. 정규성이 충족되었다고 판단한다.
 library(psych)
-describeBy(데이터$Pieces, 데이터$Condition)
+describeBy(데이터$종속변수, 데이터$독립변수)
 
 
 ## 3-1. 등분산성 검정 (homogeneity of variance test) by levene test: 정규성 가정과 무관한 등분산 검정 방법.
