@@ -1,0 +1,21 @@
+# Regression with Dummy
+
+# 더미변수 (Dummy variable)
+  더미변수는 범주형 변수를 연속형 변수로 변환한 것인데, 정확히 따지자면 연속형 변수"스럽게" 만든 것이다.
+  - 범주형 변수: 숫자로 이루어져 있으며, 끊키는 부분 없이 연속적으로 값을 가질 수 있다. 예) 온도, 구매율 
+  - 연속형 변수: 문자 또는 숫자로 이루어져 있으며, 범주(카테고리)가 있다. 예) 학년(1,2,3), 성별(남,여)
+  - 회귀분석은 설명변수가 연속형 변수여야지 사용할 수 있는 분석 기법. 설명변수 중에 범주형 변수가 섞여 있다면, 그 변수를 더미변수로 변환 후 회귀분석을 사용할 수 있다.
+ 
+# 더미변수 만들기
+library(fastDummies)
+var <- dummy)cols(데이터, select_columns = "범수형인 곳", remove_first_dummy = TRUE)
+iris_d <- dummy_cols(iris, select_columns = "Species", remove_first_dummy = TRUE)
+#-----------fastDummies package 추가 설명: https://www.marsja.se/create-dummy-variables-in-r/#3_Make_Dummy_Variables_in_R
+
+# Correlation(상관분석)
+var.lm <- lm(종속변수 ~ 독립변수1 + 독립변수2  + 더미2 + 더미3, data = iris_d )
+summary(var.lm)
+
+
+#참고: https://kkokkilkon.tistory.com/37
+#참고: https://eunhye-zz.tistory.com/2
