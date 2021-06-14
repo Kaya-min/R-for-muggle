@@ -48,7 +48,7 @@ abline(lm(데이터$종속변수 ~ 데이터$독립변수), col = "yellow", lwd 
 
 1. Correlation(상관분석) by chart.Correlation()
 library(PerformanceAnalytics)
-chart.Correlation(eco2)
+chart.Correlation(데이터)
 
 2. Multi regression (다중선형 회귀 분석)
 
