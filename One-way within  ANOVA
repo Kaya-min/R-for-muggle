@@ -1,0 +1,46 @@
+# One-way within ANOVA (within-subjects ANOVA) with problem set 6
+
+##melt() 사용 가능성 염두
+
+## 1. 독립성 검정 (test of independence): 무선표집을 하였다면 만족하는 것으로 여김
+
+## 2-1. 정규성 검증 (normality test) by Box plot: data set이 정규분포를 따르는지 판단하는 시각적 분석 방법 1
+boxplot(종속변수 ~ 독립변수,
+        data = 데이터,
+        main = "위에 써질 메인 제목",
+        xlab = "x축 이름",
+        ylab = "y축 이름",
+        col = c('색 코드', '색 코드', 'level 수만큼 설정하기')
+        
+## 2-2. 정규성 검증 (normality test) by Q-Q plot: data set이 정규분포를 따르는지 판단하는 시각적 분석 방법 2
+library(car)
+qqPlot(데이터$종속변수 ~ 데이터$독립변수)
+        
+## 2-3. 정규성 검증 (normality test) by Shapiro-Wilks test: 표본수(n)이 2000 미만인 data set에 적합한 정규성 검정
+- H0(귀무가설): data set이 정규분포를 따른다.
+- H1(대립가설): data set이 정규분포를 따르지 않는다.
+- 가설 채택 여부 결정: p-value>0.05 라면 귀무가설 채택. 정규성이 충족되었다고 판단한다.
+by(종속변수, 독립변수, shapiro.test)
+
+
+## 3-1. 구형성 검정 (Assumption of sphericity) by Mauchly's Test
+- H0(귀무가설): 집단 간 분산 차이가 없을 것이다. (σ1 = σ2 / 등분산일 것이다.)
+- H1(대립가설): 집단 간 분산 차이가 있을 것이다. (σ1 ≠ σ2 / 이분산일 것이다.)
+- 가설 채택 여부 결정: p-value>0.05 라면 귀무가설 채택. 구형성이 충족되었다고 판단한다.
+- 아래 ezANOVA()로 결과 파악 가능
+
+
+## One-way within ANOVA 실행: 그룹 평균 간의 차이가 통계적으로 유의한지 여부 확인
+- H0(귀무가설): (독립변수들)에 (종속변수 값)이 모두 같을 것이다.
+- H1(대립가설): (독립변수들)에 (종속변수 값)이 모두 같지는 않을 것이다.
+- 가설 채택 여부 결정: p-value<0.05 라면 대립가설 채택. 독립변수에 따른 종속변수에 차이가 있다고 판단한다.
+library(ez)
+var <- ezANOVA(data=데이터 이름, within= .(독립변수), dv= .(종속변수), wid= .(피험자 ID))
+var
+#기술은 problem6 참고
+
+## post hoc test (사후검증) by Bonferroni: 비교 대상 표본 수가 동일하지 않아도 않아도 분석 가능
+- 판단: p-value<0.05 라면 시간의 흐름에 따라 변화가 있다고 판단한다.
+library(stats)
+pairwise.t.test(데이터$종속변수, drug.m$독립변수, paired = T, p.adjust.method = "bonferroni")
+#기술은 problem6 참고
