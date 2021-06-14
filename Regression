@@ -70,3 +70,4 @@ library(lm.beta)       #beta값(기울기)이 클수록 영향력 큰 거 알지
 lm.beta(var)
 *기술(problem set 낸 거 보면서 해,,)
 : 또한 분석 결과를 통해 개인이 지각하는 환경문제의 심각성 정도, 친환경 행동을 할 수 있다는 자기 효능감, 성별, 교육 수준 순서로 친환경 행동 의도에 정(+)적인 영향을 준다는 것을 알 수 있다.
+*기술시 (반드시) 참고: https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=nyaminyam&logNo=221251350599
