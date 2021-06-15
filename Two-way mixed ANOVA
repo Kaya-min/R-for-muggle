@@ -1,0 +1,36 @@
+# Two-way mixed ANOVA with problem set 7
+#----독립 변수2개(하나는 시간과 관련있는 within subject, 하나는 관계없는 between subject)가 종속변수에 영향을 미치는지 세 집단 이상의 평균치 비교
+#---melt()써야함을 염두하기
+# 그냥 2 way 참고: https://mindscale.kr/course/basic-stat-r/two-way-anova/
+
+## 1. 독립성 검정 (test of independence): 무선표집을 하였다면 만족하는 것으로 여김
+
+## 2-1. 정규성 검증 (normality test) by Box plot: data set이 정규분포를 따르는지 판단하는 시각적 분석 방법 1
+library(car)
+boxplot(종속변수 ~ 독립변수1*독립변수2,
+ data = 데이터,
+ las = 1,
+ xlab = "x축 이름", ylab = "y축 이름",
+ col = c('독립변수 1 색 코드', '독립변수 2 색 코드')    #las: 숫자 옆으로 써져있는 거 똑바로 세우는 거임
+ 
+## 3. 등분산성 검정 (homogeneity of variance test) by levene test: 정규성 가정과 무관한 등분산 검정 방법.
+- H0(귀무가설): 집단 간 분산 차이가 없을 것이다. (σ1 = σ2 / 등분산일 것이다.)
+- H1(대립가설): 집단 간 분산 차이가 있을 것이다. (σ1 ≠ σ2 / 이분산일 것이다.)
+- 가설 채택 여부 결정: p-value>0.05 라면 귀무가설 채택. 등분산성이 충족되었다고 판단한다.
+library(car)
+leveneTest(데이터$종속변수값 ~ 데이터$그룹)    #melt()써서/// 잘모르면 pr7 꼭 봐...
+#그냥했다면         leveneTest(종속변수 ~ 독립변수1*독립변수2, data = 데이터) 
+
+##
+
+
+## interaction plot (혹시 모르니까 구글링 해봐,,)
+interaction.plot(데이터$종속변수, 데이터$독립변수1, 데이터$독립변수2,
+  fun=mean,
+  type="b",
+  pch=c(2,4,6),
+  legend=F,
+  col=c(3,4,6),
+  xlab="x축 설명",
+  ylab="y축 설명") 
+legend("bottomleft",legend=c("grp1: baseline","grp2: moderate","grp3: high"),pch=c(2,4,6),col=c(3,4,6))
